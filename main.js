@@ -1,42 +1,59 @@
 'use strict';
 
-const characterOne = {
+const heroOne = {
   name: 'Sub-Zero',
   hp: 100,
-  img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
+  img: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
   weapon: ['ice sword', 'ice ax'],
   attack: function() {
     console.log(this.name + ' fight');
   }
 };
 
-const characterTwo = {
+const heroTwo = {
   name: 'Scorpion',
-  hp: 100,
-  img: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
+  hp: 70,
+  img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
   weapon: ['harpoon', 'fireball'],
   attack: function() {
     console.log(this.name + ' fight');
   }
 };
 
-const createPlayer = (player, character) => {
+const createPlayer = (player, hero) => {
   const arena = document.querySelector('.arenas');
-  const createCharacter = document.createElement('div');
-  createCharacter.classList.add(`${player}`);
+  const selectPlayer = document.createElement('div');
+  const progressbar = document.createElement('div');
+  const life = document.createElement('div');
+  const name = document.createElement('div');
+  const character = document.createElement('div');
+  const img = document.createElement('img');
 
-  createCharacter.insertAdjacentHTML('beforeend', `
-          <div class="progressbar">
-              <div class="life">${character.hp}</div>
-              <div class="name">${character.name}</div>
-          </div>
-          <div class="character">
-              <img src="${character.img}" />
-          </div>
-  `);
+  selectPlayer.classList.add(`${player}`);
 
-  arena.appendChild(createCharacter);
+  progressbar.classList.add('progressbar');
+
+  life.classList.add('life');
+  life.style.width = hero.hp + '%';
+
+  name.classList.add('name');
+  name.innerText = hero.name;
+
+  character.classList.add('character');
+
+  img.src = `${hero.img}`;
+
+  arena.appendChild(selectPlayer);
+
+  selectPlayer.appendChild(progressbar);
+  selectPlayer.appendChild(character);
+
+  progressbar.appendChild(life);
+  progressbar.appendChild(name);
+
+  character.appendChild(img);
+
 };
 
-createPlayer('player1', characterOne);
-createPlayer('player2', characterTwo);
+createPlayer('player1', heroOne);
+createPlayer('player2', heroTwo);
